@@ -3,43 +3,62 @@ package hackerrank;
 import java.util.HashMap;
 
 public class FurnitureOrder implements FurnitureOrderInterface {
-    /**
-     * TODO: Create a map of Furniture items to order quantities
-     */
+   private Furniture f;
+	private HashMap<Furniture, Integer> orders;
+	
+	
 
-    /**
-     * Initialize a new mapping of Furniture types to order quantities.
-     */
-    FurnitureOrder() {
-        // TODO: Complete the constructor
-    }
+	public FurnitureOrder() {
+		orders = new HashMap<>();
+	}
 
-    public void addToOrder(final Furniture type, final int furnitureCount) {
-        // TODO: Complete the method
-    }
+	public void addFurniture(Furniture f, int count) {
+		
+		if(orders.get(f)==null)
+			orders.put(f,count);
+		else {
+			orders.put(f, orders.get(f)+count);
+		}
+			
+		
+	}
 
-    public HashMap<Furniture, Integer> getOrderedFurniture() {
-        // TODO: Complete the method
-        return null;
-    }
+	public HashMap<Furniture, Integer> getOrderedFurniture() {
+		
+		return orders;
+	}
 
-    public float getTotalOrderCost() {
-        // TODO: Complete the method
-        return -1.0f;
-    }
+	public int getTypeCount(Furniture f) {
+		
+		return orders.get(f);
+	}
 
-    public int getTypeCount(Furniture type) {
-        // TODO: Complete the method
-        return -1;
-    }
+	public float getTypeCost(Furniture f) {
+		Integer n = orders.get(f);
+		if(n!=null) {
+			return n*f.cost();
+		}
+		return 0;
+	}
 
-    public float getTypeCost(Furniture type) {
-        // TODO: Complete the method
-        return -1.0f;
-    }
+	public float getTotalOrderCost() {
+		int totalCost = 0;
+		Set<Entry<Furniture, Integer>> orderSet = orders.entrySet();
+		for(Entry<Furniture, Integer> e : orderSet ) {
+			totalCost += e.getKey().cost() * e.getValue();
+		}
+		
+		return totalCost;
+	}
 
-    public int getTotalOrderQuantity() {
-        // TODO: Complete the method
-        return -1;
-    }
+	public int getTotalOderQuantity() {
+		int totalCount = 0;
+		Set<Entry<Furniture, Integer>> orderSet = orders.entrySet();
+		for(Entry<Furniture, Integer> e : orderSet ) {
+			totalCount += e.getValue();
+		}
+		return totalCount;
+	}
+	
+	
 }
